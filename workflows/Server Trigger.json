@@ -1,0 +1,104 @@
+{
+  "name": "Server Trigger",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "xxxx"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        -80
+      ],
+      "id": "xxxx",
+      "name": "MCP Server Trigger",
+      "webhookId": "xxxx"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        144,
+        112
+      ],
+      "id": "xxxx",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {
+        "description": "Formats text. Accepts inputText (string) and operation: \n\"uppercase\", \"lowercase\", \"capitalize\", \"reverse\", \n\"word_count\", or \"remove_spaces\". Returns formatted result.",
+        "jsCode": "const text = $input.first().json.inputText || \"\";\nconst operation = $input.first().json.operation || \"uppercase\";\n\nlet result = \"\";\n\nswitch (operation) {\n  case \"uppercase\":\n    result = text.toUpperCase();\n    break;\n  case \"lowercase\":\n    result = text.toLowerCase();\n    break;\n  case \"capitalize\":\n    result = text\n      .split(\" \")\n      .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())\n      .join(\" \");\n    break;\n  case \"reverse\":\n    result = text.split(\"\").reverse().join(\"\");\n    break;\n  case \"word_count\":\n    result = `Word count: ${text.trim().split(/\\s+/).length}`;\n    break;\n  case \"remove_spaces\":\n    result = text.replace(/\\s+/g, \"\");\n    break;\n  default:\n    result = text.toUpperCase();\n}\n\nreturn [{ json: { result, operation, original: text } }];"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.3,
+      "position": [
+        -160,
+        112
+      ],
+      "id": "xxxx",
+      "name": "Text Formatter"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTimeTool",
+      "typeVersion": 2,
+      "position": [
+        0,
+        112
+      ],
+      "id": "xxxx",
+      "name": "Date & Time"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Formatter": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "xxxx",
+  "meta": {
+    "instanceId": "xxxx"
+  },
+  "id": "xxxx",
+  "tags": []
+}
