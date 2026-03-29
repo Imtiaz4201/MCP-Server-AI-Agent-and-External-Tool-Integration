@@ -149,7 +149,7 @@ The agent automatically created **4 events** in Google Calendar:
 ### 2.4 Interaction Verification
 
 Asked the bot via Telegram to verify the project phases on the calendar.  
-The agent successfully queried Google Calendar and confirmed all 4 events.
+The agent successfully queried Google Calendar and confirmed all  events on 1st April.
 <img src="chat3.png" 
        alt="Telegram verification"
        width="700"
